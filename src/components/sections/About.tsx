@@ -1,5 +1,6 @@
 import FadeIn from '@/components/ui/FadeIn';
-import { Calendar, MapPin, Code2 } from 'lucide-react';
+import { Calendar, MapPin, Code2, User } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 export default function About() {
   return (
@@ -12,6 +13,24 @@ export default function About() {
           <p className="text-muted-foreground text-center mb-16 max-w-xl mx-auto">
             Get to know the person behind the code
           </p>
+        </FadeIn>
+
+        {/* Profile Photo */}
+        <FadeIn delay={0.1}>
+          <div className="flex justify-center mb-12">
+            <div className="relative">
+              <Avatar className="w-40 h-40 sm:w-48 sm:h-48 border-4 border-primary/30 shadow-xl">
+                {/* Replace the src below with your photo path, e.g., "/profile.jpg" */}
+                <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                <AvatarFallback className="bg-gradient-primary text-4xl font-bold text-primary-foreground">
+                  <User className="w-16 h-16" />
+                </AvatarFallback>
+              </Avatar>
+              <div className="absolute -bottom-2 -right-2 w-12 h-12 rounded-full bg-gradient-primary flex items-center justify-center shadow-lg">
+                <Code2 className="w-6 h-6 text-primary-foreground" />
+              </div>
+            </div>
+          </div>
         </FadeIn>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
