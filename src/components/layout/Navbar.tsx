@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -40,7 +41,7 @@ export default function Navbar() {
             </a>
 
             {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-6">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
@@ -51,23 +52,33 @@ export default function Navbar() {
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
                 </a>
               ))}
+              <ThemeToggle />
+              <Button variant="outline" size="sm" asChild>
+                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Resume
+                </a>
+              </Button>
               <Button variant="hero" size="sm" asChild>
                 <a href="#contact">Hire Me</a>
               </Button>
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+            <div className="flex items-center gap-3 md:hidden">
+              <ThemeToggle />
+              <button
+                className="p-2"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -103,7 +114,13 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <Button variant="hero" className="mt-4" asChild>
+            <Button variant="outline" className="justify-start" asChild>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>
+                <FileText className="w-4 h-4 mr-2" />
+                View Resume
+              </a>
+            </Button>
+            <Button variant="hero" className="mt-2" asChild>
               <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
                 Hire Me
               </a>
