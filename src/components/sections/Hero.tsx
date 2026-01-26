@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Hero() {
@@ -46,13 +46,27 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
           >
             <Button variant="hero" size="lg" asChild>
               <a href="#projects">View My Work</a>
             </Button>
             <Button variant="heroOutline" size="lg" asChild>
               <a href="#contact">Get In Touch</a>
+            </Button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
+            className="mb-12"
+          >
+            <Button variant="outline" size="lg" asChild className="group">
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                <FileText className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
+                View Resume
+              </a>
             </Button>
           </motion.div>
           
