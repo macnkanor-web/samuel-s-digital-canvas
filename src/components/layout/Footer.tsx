@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail, Heart, Twitter } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -16,8 +16,9 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             {[
               { icon: Github, href: 'https://github.com', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-              { icon: Mail, href: 'mailto:samuel@example.com', label: 'Email' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/samuel-nkanor-172a83381', label: 'LinkedIn' },
+              { icon: Twitter, href: 'https://x.com/MarNkanor', label: 'X/Twitter' },
+              { icon: Mail, href: 'mailto:mac.nkanor@gmail.com', label: 'Email' },
             ].map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
