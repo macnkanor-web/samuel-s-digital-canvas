@@ -63,9 +63,9 @@ export default function Hero() {
             className="mb-12"
           >
             <Button variant="outline" size="lg" asChild className="group">
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="/resume.pdf" download="Samuel_Nkanor_Resume.pdf">
                 <FileText className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
-                View Resume
+                Download Resume
               </a>
             </Button>
           </motion.div>
