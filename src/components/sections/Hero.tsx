@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, FileText } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, FileText, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Hero() {
@@ -78,8 +78,9 @@ export default function Hero() {
           >
             {[
               { icon: Github, href: 'https://github.com', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-              { icon: Mail, href: 'mailto:samuel@example.com', label: 'Email' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/samuel-nkanor-172a83381', label: 'LinkedIn' },
+              { icon: Twitter, href: 'https://x.com/MarNkanor', label: 'X/Twitter' },
+              { icon: Mail, href: 'mailto:mac.nkanor@gmail.com', label: 'Email' },
             ].map(({ icon: Icon, href, label }) => (
               <a
                 key={label}
