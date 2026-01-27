@@ -49,10 +49,10 @@ export default function Contact() {
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
                     <a 
-                      href="mailto:samuel.nkanor@example.com" 
+                      href="mailto:mac.nkanor@gmail.com" 
                       className="font-medium hover:text-primary transition-colors"
                     >
-                      samuel.nkanor@example.com
+                      mac.nkanor@gmail.com
                     </a>
                   </div>
                 </div>
@@ -63,7 +63,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-medium">Nigeria</p>
+                    <p className="font-medium">Calabar, Cross River State, Nigeria</p>
                   </div>
                 </div>
               </div>

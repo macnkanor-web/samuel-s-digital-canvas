@@ -48,16 +48,15 @@ export default function About() {
                 </div>
 
                 <p className="text-foreground/90 leading-relaxed">
-                  I'm a passionate software engineer from Nigeria with a deep love for creating 
-                  exceptional digital experiences. With 2+ years of hands-on experience across 
-                  the full development stack, I bring ideas to life through clean code and 
-                  intuitive design.
+                  I'm a passionate software engineer from Calabar, Nigeria with a deep love for creating 
+                  exceptional digital experiences. Currently studying Software Engineering at Miva Open 
+                  University Abuja, I bring ideas to life through clean code and intuitive design.
                 </p>
 
                 <p className="text-foreground/90 leading-relaxed">
-                  My journey in tech started early, and I've since mastered frontend and backend 
-                  development, UI/UX design, and Python engineering. I believe in writing code 
-                  that's not just functional, but elegant and maintainable.
+                  With 2+ years of hands-on experience across the full development stack, I've mastered 
+                  frontend and backend development, UI/UX design, and Python engineering. I believe in 
+                  writing code that's not just functional, but elegant and maintainable.
                 </p>
 
                 <div className="flex flex-wrap gap-4 pt-4">
@@ -67,7 +66,7 @@ export default function About() {
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <MapPin className="w-4 h-4 text-primary" />
-                    <span>Nigeria</span>
+                    <span>Calabar, Nigeria</span>
                   </div>
                 </div>
               </div>
