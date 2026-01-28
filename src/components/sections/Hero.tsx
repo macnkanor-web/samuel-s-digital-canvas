@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowDown, Github, Linkedin, Mail, FileText, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 export default function Hero() {
   return (
     <section className="min-h-screen flex items-center justify-center relative section-padding">
@@ -11,6 +11,20 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
         >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+            className="flex justify-center mb-6"
+          >
+            <Avatar className="w-32 h-32 sm:w-40 sm:h-40 border-4 border-primary/30 shadow-xl">
+              <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+              <AvatarFallback className="bg-gradient-primary text-3xl font-bold text-primary-foreground">
+                SN
+              </AvatarFallback>
+            </Avatar>
+          </motion.div>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
