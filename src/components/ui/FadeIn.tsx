@@ -17,7 +17,7 @@ export default function FadeIn({
   duration = 0.6 
 }: FadeInProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: false, margin: "-100px", amount: 0.3 });
 
   const directionOffset = {
     up: { y: 40, x: 0 },
@@ -39,10 +39,14 @@ export default function FadeIn({
         opacity: 1, 
         y: 0,
         x: 0,
-      } : {}}
+      } : {
+        opacity: 0,
+        y: directionOffset[direction].y,
+        x: directionOffset[direction].x,
+      }}
       transition={{ 
         duration,
-        delay,
+        delay: isInView ? delay : 0,
         ease: [0.25, 0.4, 0.25, 1],
       }}
       className={className}
