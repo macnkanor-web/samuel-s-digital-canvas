@@ -41,6 +41,7 @@
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100% / 0.9) 0%, hsl(210 20% 98% / 0.95) 100%);
     --gradient-text: linear-gradient(135deg, hsl(175 80% 35%) 0%, hsl(280 70% 50%) 100%);
     --gradient-hero: linear-gradient(180deg, hsl(210 20% 98%) 0%, hsl(210 25% 95%) 100%);
+    --gradient-anime: linear-gradient(180deg, hsl(280 30% 95% / 0.85) 0%, hsl(330 40% 96% / 0.9) 50%, hsl(210 30% 96% / 0.85) 100%);
     
     --glow-primary: 0 0 40px hsl(175 80% 40% / 0.2);
     --glow-accent: 0 0 40px hsl(280 70% 55% / 0.2);
@@ -91,6 +92,7 @@
     --gradient-card: linear-gradient(135deg, hsl(220 20% 10% / 0.8) 0%, hsl(220 20% 6% / 0.9) 100%);
     --gradient-text: linear-gradient(135deg, hsl(175 80% 60%) 0%, hsl(280 70% 70%) 100%);
     --gradient-hero: linear-gradient(180deg, hsl(220 20% 4%) 0%, hsl(220 25% 8%) 100%);
+    --gradient-anime: linear-gradient(180deg, hsl(280 40% 8% / 0.9) 0%, hsl(330 30% 6% / 0.92) 50%, hsl(220 35% 6% / 0.9) 100%);
     
     --glow-primary: 0 0 40px hsl(175 80% 50% / 0.3);
     --glow-accent: 0 0 40px hsl(280 70% 60% / 0.3);
@@ -145,6 +147,10 @@
 
   .bg-gradient-hero {
     background: var(--gradient-hero);
+  }
+
+  .bg-gradient-anime {
+    background: var(--gradient-anime);
   }
 
   .glass {
