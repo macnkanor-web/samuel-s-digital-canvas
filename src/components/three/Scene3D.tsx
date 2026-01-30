@@ -1,10 +1,10 @@
 import { Canvas } from '@react-three/fiber';
 import { Float, Stars } from '@react-three/drei';
-import { Suspense, useRef, useMemo } from 'react';
+import { Suspense, useRef, useMemo, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// Anime-style soft glowing orb
+// Anime-style soft glowing orb with hover pulsing
 function GlowOrb({ position, color, size, speed = 1 }: { 
   position: [number, number, number]; 
   color: string; 
@@ -13,19 +13,44 @@ function GlowOrb({ position, color, size, speed = 1 }: {
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const glowRef = useRef<THREE.Mesh>(null);
+  const outerGlowRef = useRef<THREE.Mesh>(null);
+  const groupRef = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = useState(false);
+  const pulseIntensity = useRef(0);
 
   useFrame((state) => {
+    // Smooth pulse transition
+    const targetIntensity = hovered ? 1 : 0;
+    pulseIntensity.current += (targetIntensity - pulseIntensity.current) * 0.1;
+    
+    const basePulse = Math.sin(state.clock.elapsedTime * speed * 2) * 0.1;
+    const hoverPulse = Math.sin(state.clock.elapsedTime * 4) * 0.3 * pulseIntensity.current;
+    
     if (meshRef.current) {
       meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * speed) * 0.3;
+      const baseOpacity = 0.8 + pulseIntensity.current * 0.2;
+      (meshRef.current.material as THREE.MeshBasicMaterial).opacity = baseOpacity;
     }
     if (glowRef.current) {
-      glowRef.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * speed * 2) * 0.1);
+      glowRef.current.scale.setScalar(1.5 + basePulse + hoverPulse);
+      const glowOpacity = 0.15 + pulseIntensity.current * 0.25;
+      (glowRef.current.material as THREE.MeshBasicMaterial).opacity = glowOpacity;
+    }
+    if (outerGlowRef.current) {
+      outerGlowRef.current.scale.setScalar(2.5 + hoverPulse * 1.5);
+      const outerOpacity = 0.05 + pulseIntensity.current * 0.1;
+      (outerGlowRef.current.material as THREE.MeshBasicMaterial).opacity = outerOpacity;
     }
   });
 
   return (
     <Float speed={speed} rotationIntensity={0.2} floatIntensity={0.5}>
-      <group position={position}>
+      <group 
+        ref={groupRef} 
+        position={position}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+      >
         {/* Core orb */}
         <mesh ref={meshRef}>
           <sphereGeometry args={[size, 32, 32]} />
@@ -37,7 +62,7 @@ function GlowOrb({ position, color, size, speed = 1 }: {
           <meshBasicMaterial color={color} transparent opacity={0.15} />
         </mesh>
         {/* Outer glow */}
-        <mesh scale={2.5}>
+        <mesh ref={outerGlowRef} scale={2.5}>
           <sphereGeometry args={[size, 16, 16]} />
           <meshBasicMaterial color={color} transparent opacity={0.05} />
         </mesh>

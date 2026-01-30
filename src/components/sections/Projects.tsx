@@ -4,18 +4,27 @@ import { Button } from '@/components/ui/button';
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce website with shopping cart, user authentication, payment integration, and admin dashboard.',
-    tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    image: '/placeholder.svg',
-    github: '#',
-    live: '#',
+    title: 'Date of Birth Calculator',
+    description: 'An interactive web application that calculates age from date inputs with exact calendar arithmetic, CSV bulk processing, and shareable links.',
+    tags: ['JavaScript', 'HTML/CSS', 'Calendar Math'],
+    image: '/projects/dob-calculator.jpeg',
+    github: 'https://github.com/macnkanor-web/DOB-Cal',
+    live: 'https://macnkanor-web.github.io/DOB-Cal/',
     type: 'web',
   },
   {
-    title: 'Date of Birth Calculator',
-    description: 'An interactive web application that calculates age, days lived, and provides interesting facts about birth dates.',
-    tags: ['JavaScript', 'HTML/CSS', 'APIs'],
+    title: 'Task Manager',
+    description: 'A productivity app with Kanban boards, calendar view, priority levels, and task statistics to help you plan, organize, and complete tasks.',
+    tags: ['JavaScript', 'HTML/CSS', 'LocalStorage'],
+    image: '/projects/task-manager.jpeg',
+    github: 'https://github.com/macnkanor-web/taskmanager',
+    live: 'https://macnkanor-web.github.io/taskmanager/',
+    type: 'web',
+  },
+  {
+    title: 'E-Commerce Platform',
+    description: 'A full-stack e-commerce website with shopping cart, user authentication, payment integration, and admin dashboard.',
+    tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
     image: '/placeholder.svg',
     github: '#',
     live: '#',
@@ -29,14 +38,6 @@ const projects = [
     github: '#',
     live: '#',
     type: 'web',
-  },
-  {
-    title: 'UI/UX Design Collection',
-    description: 'Various mobile and web app designs created in Figma and Framer, showcasing modern design principles.',
-    tags: ['Figma', 'Framer', 'UI/UX'],
-    image: '/placeholder.svg',
-    figma: '#',
-    type: 'design',
   },
 ];
 
@@ -58,12 +59,22 @@ export default function Projects() {
             <FadeIn key={project.title} delay={index * 0.1} direction="up">
               <div className="glass rounded-2xl overflow-hidden shadow-card hover-lift group h-full flex flex-col">
                 <div className="aspect-video bg-secondary relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-primary opacity-20" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-4xl font-display font-bold text-foreground/20">
-                      {project.title.charAt(0)}
-                    </span>
-                  </div>
+                  {project.image !== '/placeholder.svg' ? (
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  ) : (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-primary opacity-20" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-4xl font-display font-bold text-foreground/20">
+                          {project.title.charAt(0)}
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
                 
                 <div className="p-6 flex-1 flex flex-col">
@@ -102,7 +113,7 @@ export default function Projects() {
                         </a>
                       </Button>
                     )}
-                    {project.figma && (
+                    {'figma' in project && typeof project.figma === 'string' && (
                       <Button variant="ghost" size="sm" asChild>
                         <a href={project.figma} target="_blank" rel="noopener noreferrer">
                           <Figma className="w-4 h-4 mr-2" />
