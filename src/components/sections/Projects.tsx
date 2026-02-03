@@ -25,7 +25,7 @@ const projects = [
     title: 'E-Commerce Platform',
     description: 'A full-stack e-commerce website with shopping cart, user authentication, payment integration, and admin dashboard.',
     tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    image: '/placeholder.svg',
+    video: '/projects/e-commerce.mp4',
     github: '#',
     live: '#',
     type: 'web',
@@ -34,7 +34,7 @@ const projects = [
     title: 'Portfolio Website',
     description: 'This personal portfolio showcasing my work, built with React, Three.js for 3D effects, and Framer Motion animations.',
     tags: ['React', 'Three.js', 'Framer Motion', 'Tailwind'],
-    image: '/placeholder.svg',
+    video: '/projects/portfolio-web.mp4',
     github: '#',
     live: '#',
     type: 'web',
@@ -59,7 +59,16 @@ export default function Projects() {
             <FadeIn key={project.title} delay={index * 0.1} direction="up">
               <div className="glass rounded-2xl overflow-hidden shadow-card hover-lift group h-full flex flex-col">
                 <div className="aspect-video bg-secondary relative overflow-hidden">
-                  {project.image !== '/placeholder.svg' ? (
+                  {'video' in project && project.video ? (
+                    <video 
+                      src={project.video} 
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline
+                      className="w-full h-full object-cover object-top"
+                    />
+                  ) : 'image' in project && project.image ? (
                     <img 
                       src={project.image} 
                       alt={project.title}
