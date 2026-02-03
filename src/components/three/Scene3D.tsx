@@ -158,6 +158,95 @@ function Sparkles() {
   );
 }
 
+// Cherry Blossom Petals falling effect
+function CherryBlossomPetals() {
+  const petalCount = 80;
+  const groupRef = useRef<THREE.Group>(null);
+  
+  const petals = useMemo(() => {
+    return Array.from({ length: petalCount }, (_, i) => ({
+      id: i,
+      position: [
+        (Math.random() - 0.5) * 25,
+        Math.random() * 20 + 5,
+        (Math.random() - 0.5) * 15 - 3
+      ] as [number, number, number],
+      rotation: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.3 + 0.2,
+      wobbleSpeed: Math.random() * 2 + 1,
+      wobbleAmount: Math.random() * 0.5 + 0.3,
+      scale: Math.random() * 0.15 + 0.08,
+      color: ['#ffb7c5', '#ffc0cb', '#ff99aa', '#ffd1dc', '#ffe4e9'][Math.floor(Math.random() * 5)]
+    }));
+  }, []);
+
+  return (
+    <group ref={groupRef}>
+      {petals.map((petal) => (
+        <Petal key={petal.id} {...petal} />
+      ))}
+    </group>
+  );
+}
+
+// Individual petal with falling animation
+function Petal({ 
+  position, 
+  rotation, 
+  speed, 
+  wobbleSpeed, 
+  wobbleAmount, 
+  scale, 
+  color 
+}: { 
+  position: [number, number, number];
+  rotation: number;
+  speed: number;
+  wobbleSpeed: number;
+  wobbleAmount: number;
+  scale: number;
+  color: string;
+}) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const initialY = useRef(position[1]);
+  const initialX = useRef(position[0]);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      // Fall down
+      meshRef.current.position.y -= speed * 0.02;
+      
+      // Wobble side to side
+      meshRef.current.position.x = initialX.current + Math.sin(state.clock.elapsedTime * wobbleSpeed) * wobbleAmount;
+      
+      // Rotate while falling
+      meshRef.current.rotation.x += 0.01 * speed;
+      meshRef.current.rotation.y += 0.015 * speed;
+      meshRef.current.rotation.z += 0.008 * speed;
+      
+      // Reset to top when fallen below view
+      if (meshRef.current.position.y < -10) {
+        meshRef.current.position.y = initialY.current + 5;
+        initialX.current = (Math.random() - 0.5) * 25;
+        meshRef.current.position.x = initialX.current;
+      }
+    }
+  });
+
+  return (
+    <mesh ref={meshRef} position={position} rotation={[rotation, rotation, rotation]} scale={scale}>
+      {/* Petal shape - ellipse-like */}
+      <planeGeometry args={[1, 1.5, 1]} />
+      <meshBasicMaterial 
+        color={color} 
+        transparent 
+        opacity={0.7} 
+        side={THREE.DoubleSide}
+      />
+    </mesh>
+  );
+}
+
 // Floating crystal with anime shader look
 function Crystal({ position, color, size }: { 
   position: [number, number, number]; 
@@ -262,6 +351,9 @@ function SceneContent() {
       
       {/* Sparkle particles */}
       <Sparkles />
+      
+      {/* Cherry blossom petals */}
+      <CherryBlossomPetals />
     </>
   );
 }
