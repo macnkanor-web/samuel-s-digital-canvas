@@ -2,7 +2,15 @@ import { motion } from 'framer-motion';
 import { ArrowDown, Github, Linkedin, Mail, FileText, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { useTypewriter } from '@/hooks/useTypewriter';
+
 export default function Hero() {
+  const { text: typedName } = useTypewriter({
+    words: ['Samuel Nkanor', 'a Developer', 'a Designer', 'a Creator'],
+    typeSpeed: 80,
+    deleteSpeed: 40,
+    delayBetweenWords: 2500,
+  });
   return (
     <section className="min-h-screen flex items-center justify-center relative section-padding">
       <div className="container-custom text-center z-10">
@@ -41,9 +49,8 @@ export default function Hero() {
             className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
           >
             Hi, I'm{' '}
-            <span className="text-gradient">Samuel</span>
-            <br />
-            <span className="text-gradient">Nkanor</span>
+            <span className="text-gradient">{typedName}</span>
+            <span className="animate-pulse text-primary">|</span>
           </motion.h1>
           
           <motion.p

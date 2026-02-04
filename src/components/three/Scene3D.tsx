@@ -1,8 +1,9 @@
 import { Canvas } from '@react-three/fiber';
 import { Float, Stars } from '@react-three/drei';
-import { Suspense, useRef, useMemo, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { Suspense, useRef, useMemo, useState, useEffect } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useMousePosition } from '@/hooks/useMousePosition';
 
 // Anime-style soft glowing orb with hover pulsing
 function GlowOrb({ position, color, size, speed = 1 }: { 
@@ -307,9 +308,37 @@ function DreamCloud({ position, scale }: { position: [number, number, number]; s
   );
 }
 
-function SceneContent() {
+// Mouse parallax controller
+function MouseParallax({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
+  const { camera } = useThree();
+  const targetRotation = useRef({ x: 0, y: 0 });
+  const targetPosition = useRef({ x: 0, y: 0 });
+
+  useFrame(() => {
+    // Smooth interpolation for camera rotation
+    targetRotation.current.x = mouseY * 0.15;
+    targetRotation.current.y = mouseX * 0.15;
+    
+    camera.rotation.x += (targetRotation.current.x - camera.rotation.x) * 0.05;
+    camera.rotation.y += (targetRotation.current.y - camera.rotation.y) * 0.05;
+    
+    // Subtle position shift
+    targetPosition.current.x = mouseX * 0.5;
+    targetPosition.current.y = mouseY * 0.3;
+    
+    camera.position.x += (targetPosition.current.x - camera.position.x) * 0.03;
+    camera.position.y += (targetPosition.current.y - camera.position.y) * 0.03;
+  });
+
+  return null;
+}
+
+function SceneContent({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   return (
     <>
+      {/* Mouse parallax effect */}
+      <MouseParallax mouseX={mouseX} mouseY={mouseY} />
+      
       {/* Soft anime lighting */}
       <ambientLight intensity={0.4} color="#e8d5ff" />
       <pointLight position={[10, 10, 10]} intensity={1} color="#ff6b9d" />
@@ -359,6 +388,8 @@ function SceneContent() {
 }
 
 export default function Scene3D() {
+  const mousePosition = useMousePosition();
+
   return (
     <div className="fixed inset-0 -z-10">
       <Canvas
@@ -366,7 +397,7 @@ export default function Scene3D() {
         gl={{ antialias: true, alpha: true }}
       >
         <Suspense fallback={null}>
-          <SceneContent />
+          <SceneContent mouseX={mousePosition.normalizedX} mouseY={mousePosition.normalizedY} />
         </Suspense>
       </Canvas>
       <div className="absolute inset-0 bg-gradient-anime opacity-90" />
