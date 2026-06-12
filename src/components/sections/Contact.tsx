@@ -3,6 +3,13 @@ import { Button } from '@/components/ui/button';
 import { Mail, MapPin, Send } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from '@/hooks/use-toast';
+import { z } from 'zod';
+
+const contactSchema = z.object({
+  name: z.string().trim().min(2, { message: 'Name must be at least 2 characters' }).max(100, { message: 'Name must be less than 100 characters' }),
+  email: z.string().trim().email({ message: 'Invalid email address' }).max(255, { message: 'Email must be less than 255 characters' }),
+  message: z.string().trim().min(10, { message: 'Message must be at least 10 characters' }).max(2000, { message: 'Message must be less than 2000 characters' }),
+});
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -14,6 +21,17 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const validation = contactSchema.safeParse(formData);
+    if (!validation.success) {
+      toast({
+        title: 'Invalid input',
+        description: validation.error.issues[0]?.message ?? 'Please check your input.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -24,7 +42,7 @@ export default function Contact() {
         },
         body: JSON.stringify({
           access_key: '92379596-d560-4984-a4e9-a224d0035ca3',
-          ...formData,
+          ...validation.data,
         }),
       });
 
