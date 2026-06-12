@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowDown, Github, Linkedin, Mail, FileText, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { useTypewriter } from '@/hooks/useTypewriter';
 
 export default function Hero() {
@@ -25,12 +26,29 @@ export default function Hero() {
             transition={{ delay: 0.1, duration: 0.6 }}
             className="flex justify-center mb-6"
           >
-            <Avatar className="w-32 h-32 sm:w-40 sm:h-40 border-4 border-primary/30 shadow-xl">
-              <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
-              <AvatarFallback className="bg-gradient-primary text-3xl font-bold text-primary-foreground">
-                SN
-              </AvatarFallback>
-            </Avatar>
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="View profile picture"
+                  className="rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ring-offset-background transition-transform hover:scale-105"
+                >
+                  <Avatar className="w-32 h-32 sm:w-40 sm:h-40 border-4 border-primary/30 shadow-xl cursor-pointer">
+                    <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                    <AvatarFallback className="bg-gradient-primary text-3xl font-bold text-primary-foreground">
+                      SN
+                    </AvatarFallback>
+                  </Avatar>
+                </button>
+              </DialogTrigger>
+              <DialogContent className="max-w-lg p-2 sm:p-4 bg-background">
+                <img
+                  src="/profile.jpg"
+                  alt="Samuel Nkanor"
+                  className="w-full h-auto rounded-lg object-contain"
+                />
+              </DialogContent>
+            </Dialog>
           </motion.div>
 
           <motion.p
