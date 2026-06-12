@@ -54,23 +54,30 @@ export default function Projects() {
           </p>
         </FadeIn>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="relative max-w-3xl mx-auto">
           {projects.map((project, index) => (
-            <FadeIn key={project.title} delay={index * 0.1} direction="up">
-              <div className="glass rounded-2xl overflow-hidden shadow-card hover-lift group h-full flex flex-col">
+            <div
+              key={project.title}
+              className="sticky"
+              style={{
+                top: `${96 + index * 24}px`,
+                marginBottom: index === projects.length - 1 ? 0 : '2rem',
+              }}
+            >
+              <div className="glass rounded-2xl overflow-hidden shadow-elevated group flex flex-col bg-card">
                 <div className="aspect-video bg-secondary relative overflow-hidden">
                   {'video' in project && project.video ? (
-                    <video 
-                      src={project.video} 
-                      autoPlay 
-                      muted 
-                      loop 
+                    <video
+                      src={project.video}
+                      autoPlay
+                      muted
+                      loop
                       playsInline
                       className="w-full h-full object-cover object-top"
                     />
                   ) : 'image' in project && project.image ? (
-                    <img 
-                      src={project.image} 
+                    <img
+                      src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover object-top"
                     />
@@ -85,7 +92,7 @@ export default function Projects() {
                     </>
                   )}
                 </div>
-                
+
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="font-display text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
                     {project.title}
@@ -93,7 +100,7 @@ export default function Projects() {
                   <p className="text-muted-foreground text-sm mb-4 flex-1">
                     {project.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag) => (
                       <span
@@ -104,7 +111,7 @@ export default function Projects() {
                       </span>
                     ))}
                   </div>
-                  
+
                   <div className="flex gap-3">
                     {project.github && (
                       <Button variant="ghost" size="sm" asChild>
@@ -133,7 +140,7 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
-            </FadeIn>
+            </div>
           ))}
         </div>
       </div>
