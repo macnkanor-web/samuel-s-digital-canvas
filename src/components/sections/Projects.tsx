@@ -54,18 +54,19 @@ export default function Projects() {
           </p>
         </FadeIn>
 
-        <div className="relative max-w-3xl mx-auto">
+        <div className="relative max-w-5xl mx-auto">
           {projects.map((project, index) => (
             <div
               key={project.title}
-              className="sticky"
+              className="sticky top-24"
               style={{
-                top: `${96 + index * 24}px`,
-                marginBottom: index === projects.length - 1 ? 0 : '2rem',
+                height: 'calc(100vh - 8rem)',
+                marginBottom: index === projects.length - 1 ? 0 : '4rem',
               }}
             >
-              <div className="glass rounded-2xl overflow-hidden shadow-elevated group flex flex-col bg-card">
-                <div className="aspect-video bg-secondary relative overflow-hidden">
+              <div className="glass rounded-2xl overflow-hidden shadow-elevated group flex flex-col bg-card h-full">
+                <div className="flex-1 bg-secondary relative overflow-hidden min-h-0">
+
                   {'video' in project && project.video ? (
                     <video
                       src={project.video}
