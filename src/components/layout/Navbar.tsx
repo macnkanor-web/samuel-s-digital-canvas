@@ -61,7 +61,11 @@ export default function Navbar() {
               ))}
               <ThemeToggle />
               <Button variant="outline" size="sm" asChild>
-                <a href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noopener noreferrer" download="Samuel_Nkanor_Resume.pdf">
+                <a
+                  href={`${import.meta.env.BASE_URL}resume.pdf`}
+                  download="Samuel_Nkanor_Resume.pdf"
+                  aria-label="Download resume PDF"
+                >
                   <FileText className="w-4 h-4 mr-2" />
                   Resume
                 </a>
@@ -122,7 +126,12 @@ export default function Navbar() {
               </a>
             ))}
             <Button variant="outline" className="justify-start" asChild>
-              <a href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noopener noreferrer" download="Samuel_Nkanor_Resume.pdf" onClick={() => setIsMobileMenuOpen(false)}>
+              <a
+                href={`${import.meta.env.BASE_URL}resume.pdf`}
+                download="Samuel_Nkanor_Resume.pdf"
+                aria-label="Download resume PDF"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
                 <FileText className="w-4 h-4 mr-2" />
                 Download Resume
               </a>
