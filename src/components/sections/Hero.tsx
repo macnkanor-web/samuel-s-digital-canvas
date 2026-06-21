@@ -102,31 +102,15 @@ export default function Hero() {
             className="mb-12"
           >
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-              <Button
-                variant="outline"
-                size="lg"
-                className="group"
-                onClick={async () => {
-                  const url = `${import.meta.env.BASE_URL}resume.pdf`;
-                  try {
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error('Failed to fetch resume');
-                    const blob = await response.blob();
-                    const blobUrl = window.URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = blobUrl;
-                    link.download = 'Samuel_Nkanor_Resume.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    window.URL.revokeObjectURL(blobUrl);
-                  } catch {
-                    window.open(url, '_blank', 'noopener,noreferrer');
-                  }
-                }}
-              >
-                <FileText className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
-                Download Resume
+              <Button variant="outline" size="lg" className="group" asChild>
+                <a
+                  href={`${import.meta.env.BASE_URL}resume.pdf`}
+                  download="Samuel_Nkanor_Resume.pdf"
+                  aria-label="Download Samuel Nkanor's resume as PDF"
+                >
+                  <FileText className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
+                  Download Resume
+                </a>
               </Button>
               <Button
                 variant="ghost"
@@ -138,12 +122,14 @@ export default function Hero() {
                   href={`${import.meta.env.BASE_URL}resume.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="View Samuel Nkanor's resume in a new tab"
                 >
                   <Eye className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
                   View Resume
                 </a>
               </Button>
             </div>
+
           </motion.div>
           
           <motion.div

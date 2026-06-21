@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, forwardRef } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import FadeIn from '@/components/ui/FadeIn';
 import { ExternalLink, Github, Figma } from 'lucide-react';
@@ -50,97 +50,101 @@ const projects = [
 
 type Project = (typeof projects)[number];
 
-function ProjectCard({ project }: { project: Project }) {
-  return (
-    <motion.article
-      layout
-      initial={{ opacity: 0, scale: 0.9, y: 24 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9, y: -16 }}
-      transition={{
-        duration: 0.45,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="group glass rounded-2xl overflow-hidden bg-card border border-border/40 shadow-elevated flex flex-col hover:border-primary/40 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
-    >
-      <div className="relative aspect-[4/3] bg-secondary overflow-hidden">
-        {'video' in project && project.video ? (
-          <video
-            src={project.video}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : 'image' in project && project.image ? (
-          <img
-            src={project.image}
-            alt={project.title}
-            loading="lazy"
-            className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-primary opacity-20">
-            <span className="text-4xl font-display font-bold text-foreground/30">
-              {project.title.charAt(0)}
-            </span>
+const ProjectCard = forwardRef<HTMLElement, { project: Project }>(
+  ({ project }, ref) => {
+    return (
+      <motion.article
+        ref={ref}
+        layout
+        initial={{ opacity: 0, scale: 0.9, y: 24 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: -16 }}
+        transition={{
+          duration: 0.45,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="group glass rounded-2xl overflow-hidden bg-card border border-border/40 shadow-elevated flex flex-col hover:border-primary/40 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+      >
+        <div className="relative aspect-[4/3] bg-secondary overflow-hidden">
+          {'video' in project && project.video ? (
+            <video
+              src={project.video}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : 'image' in project && project.image ? (
+            <img
+              src={project.image}
+              alt={project.title}
+              loading="lazy"
+              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-primary opacity-20">
+              <span className="text-4xl font-display font-bold text-foreground/30">
+                {project.title.charAt(0)}
+              </span>
+            </div>
+          )}
+          <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] uppercase tracking-wider rounded-full bg-background/80 backdrop-blur text-foreground/80 border border-border/40">
+            {project.category}
+          </span>
+        </div>
+
+        <div className="p-5 flex flex-col flex-1">
+          <h3 className="font-display text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+            {project.title}
+          </h3>
+          <p className="text-muted-foreground text-sm mb-4 flex-1">
+            {project.description}
+          </p>
+
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2 py-0.5 text-[11px] rounded-md bg-secondary text-secondary-foreground"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
-        )}
-        <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] uppercase tracking-wider rounded-full bg-background/80 backdrop-blur text-foreground/80 border border-border/40">
-          {project.category}
-        </span>
-      </div>
 
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-display text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-          {project.title}
-        </h3>
-        <p className="text-muted-foreground text-sm mb-4 flex-1">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-0.5 text-[11px] rounded-md bg-secondary text-secondary-foreground"
-            >
-              {tag}
-            </span>
-          ))}
+          <div className="flex gap-2 pt-2 border-t border-border/40">
+            {project.github && (
+              <Button variant="ghost" size="sm" asChild>
+                <a href={project.github} target="_blank" rel="noopener noreferrer">
+                  <Github className="w-4 h-4 mr-1.5" />
+                  Code
+                </a>
+              </Button>
+            )}
+            {project.live && (
+              <Button variant="ghost" size="sm" asChild>
+                <a href={project.live} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="w-4 h-4 mr-1.5" />
+                  Live
+                </a>
+              </Button>
+            )}
+            {'figma' in project && typeof project.figma === 'string' && (
+              <Button variant="ghost" size="sm" asChild>
+                <a href={project.figma} target="_blank" rel="noopener noreferrer">
+                  <Figma className="w-4 h-4 mr-1.5" />
+                  Design
+                </a>
+              </Button>
+            )}
+          </div>
         </div>
-
-        <div className="flex gap-2 pt-2 border-t border-border/40">
-          {project.github && (
-            <Button variant="ghost" size="sm" asChild>
-              <a href={project.github} target="_blank" rel="noopener noreferrer">
-                <Github className="w-4 h-4 mr-1.5" />
-                Code
-              </a>
-            </Button>
-          )}
-          {project.live && (
-            <Button variant="ghost" size="sm" asChild>
-              <a href={project.live} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="w-4 h-4 mr-1.5" />
-                Live
-              </a>
-            </Button>
-          )}
-          {'figma' in project && typeof project.figma === 'string' && (
-            <Button variant="ghost" size="sm" asChild>
-              <a href={project.figma} target="_blank" rel="noopener noreferrer">
-                <Figma className="w-4 h-4 mr-1.5" />
-                Design
-              </a>
-            </Button>
-          )}
-        </div>
-      </div>
-    </motion.article>
-  );
-}
+      </motion.article>
+    );
+  }
+);
+ProjectCard.displayName = 'ProjectCard';
 
 export default function Projects() {
   const categories = useMemo(
