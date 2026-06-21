@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, FileText, Twitter } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, FileText, Twitter, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
@@ -101,31 +101,49 @@ export default function Hero() {
             transition={{ delay: 0.8, duration: 0.6 }}
             className="mb-12"
           >
-            <Button
-              variant="outline"
-              size="lg"
-              className="group"
-              onClick={async () => {
-                try {
-                  const response = await fetch('./resume.pdf');
-                  if (!response.ok) throw new Error('Failed to fetch resume');
-                  const blob = await response.blob();
-                  const url = window.URL.createObjectURL(blob);
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.download = 'Samuel_Nkanor_Resume.pdf';
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                  window.URL.revokeObjectURL(url);
-                } catch {
-                  window.open('./resume.pdf', '_blank');
-                }
-              }}
-            >
-              <FileText className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
-              Download Resume
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <Button
+                variant="outline"
+                size="lg"
+                className="group"
+                onClick={async () => {
+                  const url = `${import.meta.env.BASE_URL}resume.pdf`;
+                  try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Failed to fetch resume');
+                    const blob = await response.blob();
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = 'Samuel_Nkanor_Resume.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(blobUrl);
+                  } catch {
+                    window.open(url, '_blank', 'noopener,noreferrer');
+                  }
+                }}
+              >
+                <FileText className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
+                Download Resume
+              </Button>
+              <Button
+                variant="ghost"
+                size="lg"
+                className="group"
+                asChild
+              >
+                <a
+                  href={`${import.meta.env.BASE_URL}resume.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Eye className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
+                  View Resume
+                </a>
+              </Button>
+            </div>
           </motion.div>
           
           <motion.div

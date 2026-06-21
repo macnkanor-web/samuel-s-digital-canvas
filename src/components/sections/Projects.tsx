@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import FadeIn from '@/components/ui/FadeIn';
 import { ExternalLink, Github, Figma } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -50,18 +50,18 @@ const projects = [
 
 type Project = (typeof projects)[number];
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.article
-      initial={{ opacity: 0, scale: 0.85, y: 40 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
+      layout
+      initial={{ opacity: 0, scale: 0.9, y: 24 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9, y: -16 }}
       transition={{
-        duration: 0.7,
-        delay: (index % 3) * 0.08,
+        duration: 0.45,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group glass rounded-2xl overflow-hidden bg-card border border-border/40 shadow-elevated flex flex-col hover:border-primary/40 transition-colors"
+      className="group glass rounded-2xl overflow-hidden bg-card border border-border/40 shadow-elevated flex flex-col hover:border-primary/40 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
     >
       <div className="relative aspect-[4/3] bg-secondary overflow-hidden">
         {'video' in project && project.video ? (
@@ -171,24 +171,38 @@ export default function Projects() {
                 key={cat}
                 onClick={() => setActive(cat)}
                 className={cn(
-                  'px-4 py-2 text-sm rounded-full border transition-all',
+                  'relative px-4 py-2 text-sm rounded-full border transition-colors',
                   active === cat
-                    ? 'bg-primary text-primary-foreground border-primary shadow-elevated'
+                    ? 'text-primary-foreground border-primary'
                     : 'bg-card/50 text-muted-foreground border-border/50 hover:text-foreground hover:border-border'
                 )}
               >
-                {cat}
+                {active === cat && (
+                  <motion.span
+                    layoutId="active-filter-pill"
+                    className="absolute inset-0 rounded-full bg-primary shadow-elevated"
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                  />
+                )}
+                <span className="relative z-10">{cat}</span>
               </button>
             ))}
           </div>
         </FadeIn>
 
         {/* Classic grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {filtered.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
-          ))}
-        </div>
+        <LayoutGroup>
+          <motion.div
+            layout
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
+          >
+            <AnimatePresence mode="popLayout">
+              {filtered.map((project) => (
+                <ProjectCard key={project.title} project={project} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </LayoutGroup>
       </div>
     </section>
   );
