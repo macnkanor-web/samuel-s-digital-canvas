@@ -171,13 +171,20 @@ export default function Projects() {
                 key={cat}
                 onClick={() => setActive(cat)}
                 className={cn(
-                  'px-4 py-2 text-sm rounded-full border transition-all',
+                  'relative px-4 py-2 text-sm rounded-full border transition-colors',
                   active === cat
-                    ? 'bg-primary text-primary-foreground border-primary shadow-elevated'
+                    ? 'text-primary-foreground border-primary'
                     : 'bg-card/50 text-muted-foreground border-border/50 hover:text-foreground hover:border-border'
                 )}
               >
-                {cat}
+                {active === cat && (
+                  <motion.span
+                    layoutId="active-filter-pill"
+                    className="absolute inset-0 rounded-full bg-primary shadow-elevated"
+                    transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                  />
+                )}
+                <span className="relative z-10">{cat}</span>
               </button>
             ))}
           </div>
