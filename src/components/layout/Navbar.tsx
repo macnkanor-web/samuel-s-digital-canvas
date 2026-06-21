@@ -61,7 +61,7 @@ export default function Navbar() {
               ))}
               <ThemeToggle />
               <Button variant="outline" size="sm" asChild>
-                <a href="/resume.pdf" download="Samuel_Nkanor_Resume.pdf">
+                <a href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noopener noreferrer" download="Samuel_Nkanor_Resume.pdf">
                   <FileText className="w-4 h-4 mr-2" />
                   Resume
                 </a>
