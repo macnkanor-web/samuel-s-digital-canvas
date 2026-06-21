@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import FadeIn from '@/components/ui/FadeIn';
 import { ExternalLink, Github, Figma } from 'lucide-react';
 import { Button } from '@/components/ui/button';
