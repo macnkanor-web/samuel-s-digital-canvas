@@ -38,14 +38,9 @@ export default function Navbar() {
         <div className="container-custom">
           <div className="flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6 lg:px-8">
             <a href="#" className="flex items-center gap-2">
-              <Avatar className="w-9 h-9 border-2 border-primary/30">
-                <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
-                <AvatarFallback className="bg-gradient-primary text-sm font-bold text-primary-foreground">
-                  SN
-                </AvatarFallback>
-              </Avatar>
-              <span className="font-display text-xl sm:text-2xl font-bold text-gradient">SN</span>
+              <span className="font-display text-xl sm:text-2xl font-bold text-gradient">Samuel.dev</span>
             </a>
+
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-6">
@@ -73,6 +68,19 @@ export default function Navbar() {
               <Button variant="hero" size="sm" asChild>
                 <a href="#contact">Hire Me</a>
               </Button>
+              <a
+                href="#about"
+                aria-label="View profile"
+                className="rounded-full transition-transform hover:scale-105"
+              >
+                <Avatar className="w-9 h-9 border-2 border-primary/40 shadow-elevated">
+                  <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                  <AvatarFallback className="bg-gradient-primary text-sm font-bold text-primary-foreground">
+                    SN
+                  </AvatarFallback>
+                </Avatar>
+              </a>
+
             </div>
 
             {/* Mobile Menu Button */}
