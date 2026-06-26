@@ -1,6 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Sparkles, ArrowRight, Github, Linkedin, Mail, Twitter, FileText, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { useRef } from 'react';
 
 const techIcons = [
   { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', size: 'lg', pos: 'col-start-3 row-start-1' },
@@ -28,9 +30,29 @@ const iconSizeMap = {
   sm: 'w-7 h-7',
 } as const;
 
+const socialLinks = [
+  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/samuel-nkanor-172a83381', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://x.com/MarNkanor', label: 'X' },
+  { icon: Mail, href: 'mailto:mac.nkanor@gmail.com', label: 'Email' },
+];
+
 export default function Hero() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const gridScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16">
+    <section
+      ref={containerRef}
+      className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16"
+    >
       {/* Cosmic glow backdrop */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1200px] h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.45),transparent_60%)] blur-3xl" />
@@ -39,32 +61,43 @@ export default function Hero() {
 
       <div className="container-custom relative z-10 px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* LEFT: Copy */}
+          {/* LEFT: Profile + name + copy */}
           <motion.div
+            style={{ y: contentY, opacity: contentOpacity }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="text-left"
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-primary/30 mb-8"
-            >
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-foreground/90">
-                Fullstack Developer Portfolio
-              </span>
-            </motion.div>
+            <div className="flex items-center gap-4 mb-6">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Avatar className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-primary/40 shadow-elevated">
+                  <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                  <AvatarFallback className="bg-gradient-primary text-lg font-bold text-primary-foreground">
+                    SN
+                  </AvatarFallback>
+                </Avatar>
+              </motion.div>
+              <div className="h-16 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent hidden sm:block" />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.15, duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-primary/30"
+              >
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-foreground/90">
+                  Fullstack Developer Portfolio
+                </span>
+              </motion.div>
+            </div>
 
-            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
-              Providing{' '}
-              <span className="bg-gradient-to-r from-accent via-primary to-primary bg-clip-text text-transparent">
-                the best
-              </span>
-              <br />
-              project experience
+            <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.05] tracking-tight mb-6">
+              Samuel<br />Nkanor
             </h1>
 
             <p className="text-muted-foreground text-lg max-w-xl mb-10 leading-relaxed">
@@ -99,12 +132,7 @@ export default function Hero() {
             </div>
 
             <div className="flex gap-4">
-              {[
-                { icon: Github, href: 'https://github.com', label: 'GitHub' },
-                { icon: Linkedin, href: 'https://www.linkedin.com/in/samuel-nkanor-172a83381', label: 'LinkedIn' },
-                { icon: Twitter, href: 'https://x.com/MarNkanor', label: 'X' },
-                { icon: Mail, href: 'mailto:mac.nkanor@gmail.com', label: 'Email' },
-              ].map(({ icon: Icon, href, label }) => (
+              {socialLinks.map(({ icon: Icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
@@ -121,6 +149,7 @@ export default function Hero() {
 
           {/* RIGHT: Tech orbit grid */}
           <motion.div
+            style={{ y: contentY, opacity: contentOpacity, scale: gridScale }}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
