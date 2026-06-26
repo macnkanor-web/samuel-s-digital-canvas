@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, FileText } from 'lucide-react';
+import { Menu, X, FileText, Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -11,6 +11,13 @@ const navLinks = [
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
+];
+
+const socialLinks = [
+  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/samuel-nkanor-172a83381', label: 'LinkedIn' },
+  { icon: Twitter, href: 'https://x.com/MarNkanor', label: 'X' },
+  { icon: Mail, href: 'mailto:mac.nkanor@gmail.com', label: 'Email' },
 ];
 
 export default function Navbar() {
@@ -38,9 +45,10 @@ export default function Navbar() {
         <div className="container-custom">
           <div className="flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6 lg:px-8">
             <a href="#" className="flex items-center gap-2">
-              <span className="font-display text-xl sm:text-2xl font-bold text-gradient">Samuel.dev</span>
+              <span className="font-display text-xl sm:text-2xl font-bold text-gradient uppercase">
+                SAMUEL.DEV
+              </span>
             </a>
-
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-6">
@@ -54,6 +62,25 @@ export default function Navbar() {
                   <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
                 </a>
               ))}
+            </div>
+
+            <div className="hidden md:flex items-center gap-3">
+              {/* Social handles — top right corner */}
+              <div className="hidden lg:flex items-center gap-1">
+                {socialLinks.map(({ icon: Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all"
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
+              <div className="h-6 w-px bg-border hidden lg:block" />
               <ThemeToggle />
               <Button variant="outline" size="sm" asChild>
                 <a
@@ -80,7 +107,6 @@ export default function Navbar() {
                   </AvatarFallback>
                 </Avatar>
               </a>
-
             </div>
 
             {/* Mobile Menu Button */}
@@ -112,7 +138,7 @@ export default function Navbar() {
         transition={{ duration: 0.2 }}
         className="fixed inset-0 z-40 md:hidden"
       >
-        <div 
+        <div
           className="absolute inset-0 bg-background/80 backdrop-blur-lg"
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -133,6 +159,21 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <div className="flex items-center gap-4 mt-2">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-3 rounded-full glass border border-border/50 text-foreground hover:text-primary hover:border-primary/60 transition-all"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
             <Button variant="outline" className="justify-start" asChild>
               <a
                 href={`${import.meta.env.BASE_URL}resume.pdf`}
