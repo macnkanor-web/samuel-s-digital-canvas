@@ -68,6 +68,19 @@ export default function Navbar() {
               <Button variant="hero" size="sm" asChild>
                 <a href="#contact">Hire Me</a>
               </Button>
+              <a
+                href="#about"
+                aria-label="View profile"
+                className="rounded-full transition-transform hover:scale-105"
+              >
+                <Avatar className="w-9 h-9 border-2 border-primary/40 shadow-elevated">
+                  <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                  <AvatarFallback className="bg-gradient-primary text-sm font-bold text-primary-foreground">
+                    SN
+                  </AvatarFallback>
+                </Avatar>
+              </a>
+
             </div>
 
             {/* Mobile Menu Button */}
