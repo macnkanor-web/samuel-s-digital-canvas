@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Sparkles, ArrowRight, Github, Linkedin, Mail, Twitter, FileText, Eye } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, Twitter, FileText, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useRef } from 'react';
@@ -81,18 +81,6 @@ export default function Hero() {
                     SN
                   </AvatarFallback>
                 </Avatar>
-              </motion.div>
-              <div className="h-16 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent hidden sm:block" />
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.15, duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-primary/30"
-              >
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-foreground/90">
-                  Fullstack Developer Portfolio
-                </span>
               </motion.div>
             </div>
 
