@@ -82,18 +82,6 @@ export default function Hero() {
                   </AvatarFallback>
                 </Avatar>
               </motion.div>
-              <div className="h-16 w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent hidden sm:block" />
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.15, duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border border-primary/30"
-              >
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-foreground/90">
-                  Fullstack Developer Portfolio
-                </span>
-              </motion.div>
             </div>
 
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.05] tracking-tight mb-6">
