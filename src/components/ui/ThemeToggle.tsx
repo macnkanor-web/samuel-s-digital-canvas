@@ -1,8 +1,13 @@
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+  className?: string;
+}
+
+export default function ThemeToggle({ className }: ThemeToggleProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -12,7 +17,7 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <button className="p-2 rounded-lg glass" aria-label="Toggle theme">
+      <button className={cn('p-2 rounded-lg glass', className)} aria-label="Toggle theme">
         <Sun className="w-5 h-5" />
       </button>
     );
@@ -21,7 +26,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-lg glass hover:glow-primary transition-all duration-300"
+      className={cn('p-2 rounded-lg glass hover:glow-primary transition-all duration-300', className)}
       aria-label="Toggle theme"
     >
       {theme === 'dark' ? (

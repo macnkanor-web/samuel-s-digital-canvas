@@ -35,23 +35,27 @@ export default function Navbar() {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-background/70 backdrop-blur-md shadow-card' : 'bg-transparent'
-        }`}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-4 left-0 right-0 z-50 px-4"
       >
-        <div className="container-custom">
-          <div className="flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6 lg:px-8">
+        <div
+          className={`max-w-6xl mx-auto h-14 sm:h-16 px-4 sm:px-5 flex items-center justify-between rounded-2xl border backdrop-blur-xl transition-all duration-300 ${
+            isScrolled
+              ? 'bg-card/90 border-border/60 shadow-elevated'
+              : 'bg-card/70 border-border/40 shadow-card'
+          }`}
+        >
+          {/* Left: Brand & Main Navigation */}
+          <div className="flex items-center gap-6 lg:gap-10">
             <a href="#" className="flex items-center gap-2">
-              <span className="font-display text-xl sm:text-2xl font-bold text-gradient uppercase">
+              <span className="font-display text-lg sm:text-xl font-bold text-gradient uppercase tracking-tight">
                 SAMUEL.DEV
               </span>
             </a>
 
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-6 lg:gap-8">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
@@ -59,30 +63,40 @@ export default function Navbar() {
                   className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
                 </a>
               ))}
             </div>
+          </div>
 
-            <div className="hidden md:flex items-center gap-3">
-              {/* Social handles — top right corner */}
-              <div className="hidden lg:flex items-center gap-1">
-                {socialLinks.map(({ icon: Icon, href, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="p-2 rounded-full text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all"
-                  >
-                    <Icon className="w-4 h-4" />
-                  </a>
-                ))}
-              </div>
-              <div className="h-6 w-px bg-border hidden lg:block" />
-              <ThemeToggle />
-              <Button variant="outline" size="sm" asChild>
+          {/* Right: Grouped Actions */}
+          <div className="hidden md:flex items-center gap-3 lg:gap-5">
+            {/* Utilities cluster */}
+            <div className="flex items-center gap-1 p-1 bg-muted rounded-lg border border-border/40">
+              {socialLinks.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-background transition-all"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+              <div className="w-px h-4 bg-border mx-1" />
+              <ThemeToggle className="p-2 rounded-md bg-transparent hover:bg-background border-0" />
+            </div>
+
+            {/* CTA pair */}
+            <div className="flex items-center gap-1 lg:gap-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="text-muted-foreground hover:text-foreground hidden sm:inline-flex"
+              >
                 <a
                   href={`${import.meta.env.BASE_URL}resume.pdf`}
                   download="Samuel_Nkanor_Resume.pdf"
@@ -92,38 +106,42 @@ export default function Navbar() {
                   Resume
                 </a>
               </Button>
-              <Button variant="hero" size="sm" asChild>
+              <Button variant="default" size="sm" asChild className="font-semibold">
                 <a href="#contact">Hire Me</a>
               </Button>
-              <a
-                href="#about"
-                aria-label="View profile"
-                className="rounded-full transition-transform hover:scale-105"
-              >
-                <Avatar className="w-9 h-9 border-2 border-primary/40 shadow-elevated">
-                  <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
-                  <AvatarFallback className="bg-gradient-primary text-sm font-bold text-primary-foreground">
-                    SN
-                  </AvatarFallback>
-                </Avatar>
-              </a>
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="flex items-center gap-3 md:hidden">
-              <ThemeToggle />
-              <button
-                className="p-2"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </button>
-            </div>
+            <div className="h-8 w-px bg-border" />
+
+            {/* Profile */}
+            <a
+              href="#about"
+              aria-label="View profile"
+              className="rounded-full transition-transform hover:scale-105"
+            >
+              <Avatar className="w-9 h-9 border-2 border-primary/40 shadow-elevated">
+                <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                <AvatarFallback className="bg-gradient-primary text-sm font-bold text-primary-foreground">
+                  SN
+                </AvatarFallback>
+              </Avatar>
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle className="p-2 rounded-md bg-transparent hover:bg-background border-0" />
+            <button
+              className="p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
       </motion.nav>
