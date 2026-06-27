@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Sparkles, ArrowRight, Github, Linkedin, Mail, Twitter, FileText, Eye } from 'lucide-react';
+import { ArrowRight, Github, Linkedin, Mail, Twitter, FileText, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useRef } from 'react';
