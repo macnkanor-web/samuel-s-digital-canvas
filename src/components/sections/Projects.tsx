@@ -145,7 +145,7 @@ function ProjectCard({
       style={{ rotateX, rotateY, transformPerspective: 1200 }}
       className={cn(
         'group/card relative rounded-3xl p-[1.5px] [transform-style:preserve-3d]',
-        'bg-gradient-to-br from-[hsl(265_85%_65%/0.5)] via-[hsl(220_85%_60%/0.35)] to-[hsl(220_85%_60%/0.5)]',
+        'bg-gradient-to-br from-primary/40 via-accent/25 to-primary/40',
         'transition-[opacity,filter] duration-500 ease-out',
         'group-hover/grid:opacity-70 group-hover/grid:saturate-75 hover:!opacity-100 hover:!saturate-100',
         className
