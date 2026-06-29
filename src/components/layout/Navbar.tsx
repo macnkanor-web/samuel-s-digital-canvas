@@ -51,7 +51,7 @@ export default function Navbar() {
           <div className="flex items-center gap-6 lg:gap-10">
             <a href="#" className="flex items-center gap-2">
               <span className="font-display text-lg sm:text-xl font-bold text-gradient uppercase tracking-tight">
-                SAMUEL.DEV
+                NEP.DEV
               </span>
             </a>
 

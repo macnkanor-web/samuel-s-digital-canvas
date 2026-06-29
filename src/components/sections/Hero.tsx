@@ -85,11 +85,11 @@ export default function Hero() {
             </div>
 
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.05] tracking-tight mb-6">
-              Samuel<br />Nkanor
+              Samuel<br />Nep
             </h1>
 
             <p className="text-muted-foreground text-lg max-w-xl mb-10 leading-relaxed">
-              I'm Samuel Nkanor — a Full Stack Software Engineer with 2+ years of
+              I'm Samuel Nep — a Full Stack Software Engineer with 2+ years of
               experience crafting beautiful websites, mobile interfaces, and
               software. Check out my projects and skills.
             </p>
