@@ -198,7 +198,7 @@ function ProjectCard({
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card to-transparent" />
 
           {/* Category chip */}
-          <span className="absolute top-4 left-4 px-3 py-1 text-[10px] uppercase tracking-[0.14em] rounded-full bg-background/60 backdrop-blur-md text-foreground border border-border">
+          <span className="absolute top-4 left-4 px-3 py-1 text-[10px] uppercase tracking-[0.14em] rounded-full bg-muted backdrop-blur-md text-foreground border border-border">
             {project.category}
           </span>
         </div>
