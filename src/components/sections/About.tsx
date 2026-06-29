@@ -21,7 +21,7 @@ export default function About() {
             <div className="relative">
               <Avatar className="w-40 h-40 sm:w-48 sm:h-48 border-4 border-primary/30 shadow-xl">
                 {/* Replace the src below with your photo path, e.g., "/profile.jpg" */}
-                <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                <AvatarImage src="/profile.jpg" alt="Samuel Nep" className="object-cover" />
                 <AvatarFallback className="bg-gradient-primary text-4xl font-bold text-primary-foreground">
                   <User className="w-16 h-16" />
                 </AvatarFallback>
@@ -42,7 +42,7 @@ export default function About() {
                     <Code2 className="w-6 h-6 text-primary-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-display text-2xl font-semibold">Samuel Nkanor</h3>
+                    <h3 className="font-display text-2xl font-semibold">Samuel Nep</h3>
                     <p className="text-muted-foreground">Full-Stack Developer & Designer</p>
                   </div>
                 </div>

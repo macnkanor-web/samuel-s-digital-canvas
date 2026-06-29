@@ -76,7 +76,7 @@ export default function Hero() {
                 transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Avatar className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-primary/40 shadow-elevated">
-                  <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                  <AvatarImage src="/profile.jpg" alt="Samuel Nep" className="object-cover" />
                   <AvatarFallback className="bg-gradient-primary text-lg font-bold text-primary-foreground">
                     SN
                   </AvatarFallback>
@@ -85,11 +85,11 @@ export default function Hero() {
             </div>
 
             <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold uppercase leading-[1.05] tracking-tight mb-6">
-              Samuel<br />Nkanor
+              Samuel<br />Nep
             </h1>
 
             <p className="text-muted-foreground text-lg max-w-xl mb-10 leading-relaxed">
-              I'm Samuel Nkanor — a Full Stack Software Engineer with 2+ years of
+              I'm Samuel Nep — a Full Stack Software Engineer with 2+ years of
               experience crafting beautiful websites, mobile interfaces, and
               software. Check out my projects and skills.
             </p>
@@ -103,7 +103,7 @@ export default function Hero() {
               <Button variant="outline" size="lg" asChild>
                 <a
                   href={`${import.meta.env.BASE_URL}resume.pdf`}
-                  download="Samuel_Nkanor_Resume.pdf"
+                  download="Samuel_Nep_Resume.pdf"
                 >
                   <FileText className="w-4 h-4 mr-2" /> Resume
                 </a>
