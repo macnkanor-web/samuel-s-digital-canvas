@@ -99,7 +99,7 @@ export default function Navbar() {
               >
                 <a
                   href={`${import.meta.env.BASE_URL}resume.pdf`}
-                  download="Samuel_Nkanor_Resume.pdf"
+                  download="Samuel_Nep_Resume.pdf"
                   aria-label="Download resume PDF"
                 >
                   <FileText className="w-4 h-4 mr-2" />
@@ -120,7 +120,7 @@ export default function Navbar() {
               className="rounded-full transition-transform hover:scale-105"
             >
               <Avatar className="w-9 h-9 border-2 border-primary/40 shadow-elevated">
-                <AvatarImage src="/profile.jpg" alt="Samuel Nkanor" className="object-cover" />
+                <AvatarImage src="/profile.jpg" alt="Samuel Nep" className="object-cover" />
                 <AvatarFallback className="bg-gradient-primary text-sm font-bold text-primary-foreground">
                   SN
                 </AvatarFallback>
@@ -193,10 +193,10 @@ export default function Navbar() {
               ))}
             </div>
             <Button variant="outline" className="justify-start" asChild>
-              <a
-                href={`${import.meta.env.BASE_URL}resume.pdf`}
-                download="Samuel_Nkanor_Resume.pdf"
-                aria-label="Download resume PDF"
+                <a
+                  href={`${import.meta.env.BASE_URL}resume.pdf`}
+                  download="Samuel_Nep_Resume.pdf"
+                  aria-label="Download resume PDF"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <FileText className="w-4 h-4 mr-2" />
