@@ -227,7 +227,7 @@ function ProjectCard({
             {project.tags.slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 text-[11px] rounded-full bg-muted border border-border text-muted-foreground"
+                className="px-2.5 py-1 text-[11px] rounded-full bg-secondary border border-border text-secondary-foreground"
               >
                 {tag}
               </span>
