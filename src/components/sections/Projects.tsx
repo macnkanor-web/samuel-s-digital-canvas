@@ -151,11 +151,11 @@ function ProjectCard({
         className
       )}
     >
-      <div className="relative h-full w-full overflow-hidden rounded-[calc(1.5rem-1.5px)] bg-[hsl(225_30%_8%)] flex flex-col">
+      <div className="relative h-full w-full overflow-hidden rounded-[calc(1.5rem-1.5px)] bg-card flex flex-col">
         {/* Thumbnail */}
         <div
           className={cn(
-            'relative overflow-hidden bg-[hsl(225_30%_5%)]',
+            'relative overflow-hidden bg-muted',
             hero ? 'h-[58%]' : 'h-[55%]'
           )}
         >
@@ -180,7 +180,7 @@ function ProjectCard({
                 className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover/card:scale-[1.04]"
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[hsl(265_60%_25%)] to-[hsl(220_60%_20%)]">
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
                 <span className="text-6xl font-display font-bold text-foreground/20">
                   {project.title.charAt(0)}
                 </span>
@@ -195,10 +195,10 @@ function ProjectCard({
           />
 
           {/* Gradient fade into content */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[hsl(225_30%_8%)] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card to-transparent" />
 
           {/* Category chip */}
-          <span className="absolute top-4 left-4 px-3 py-1 text-[10px] uppercase tracking-[0.14em] rounded-full bg-black/40 backdrop-blur-md text-white/85 border border-white/10">
+          <span className="absolute top-4 left-4 px-3 py-1 text-[10px] uppercase tracking-[0.14em] rounded-full bg-background/60 backdrop-blur-md text-foreground border border-border">
             {project.category}
           </span>
         </div>
