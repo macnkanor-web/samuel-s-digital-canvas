@@ -145,17 +145,17 @@ function ProjectCard({
       style={{ rotateX, rotateY, transformPerspective: 1200 }}
       className={cn(
         'group/card relative rounded-3xl p-[1.5px] [transform-style:preserve-3d]',
-        'bg-gradient-to-br from-[hsl(265_85%_65%/0.5)] via-[hsl(220_85%_60%/0.35)] to-[hsl(220_85%_60%/0.5)]',
+        'bg-gradient-to-br from-primary/40 via-accent/25 to-primary/40',
         'transition-[opacity,filter] duration-500 ease-out',
         'group-hover/grid:opacity-70 group-hover/grid:saturate-75 hover:!opacity-100 hover:!saturate-100',
         className
       )}
     >
-      <div className="relative h-full w-full overflow-hidden rounded-[calc(1.5rem-1.5px)] bg-[hsl(225_30%_8%)] flex flex-col">
+      <div className="relative h-full w-full overflow-hidden rounded-[calc(1.5rem-1.5px)] bg-card flex flex-col">
         {/* Thumbnail */}
         <div
           className={cn(
-            'relative overflow-hidden bg-[hsl(225_30%_5%)]',
+            'relative overflow-hidden bg-muted',
             hero ? 'h-[58%]' : 'h-[55%]'
           )}
         >
@@ -180,7 +180,7 @@ function ProjectCard({
                 className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover/card:scale-[1.04]"
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[hsl(265_60%_25%)] to-[hsl(220_60%_20%)]">
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
                 <span className="text-6xl font-display font-bold text-foreground/20">
                   {project.title.charAt(0)}
                 </span>
@@ -195,10 +195,10 @@ function ProjectCard({
           />
 
           {/* Gradient fade into content */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[hsl(225_30%_8%)] to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card to-transparent" />
 
           {/* Category chip */}
-          <span className="absolute top-4 left-4 px-3 py-1 text-[10px] uppercase tracking-[0.14em] rounded-full bg-black/40 backdrop-blur-md text-white/85 border border-white/10">
+          <span className="absolute top-4 left-4 px-3 py-1 text-[10px] uppercase tracking-[0.14em] rounded-full bg-muted backdrop-blur-md text-foreground border border-border">
             {project.category}
           </span>
         </div>
@@ -227,7 +227,7 @@ function ProjectCard({
             {project.tags.slice(0, 4).map((tag) => (
               <span
                 key={tag}
-                className="px-2.5 py-1 text-[11px] rounded-full bg-white/5 backdrop-blur border border-white/10 text-foreground/80"
+                className="px-2.5 py-1 text-[11px] rounded-full bg-secondary border border-border text-secondary-foreground"
               >
                 {tag}
               </span>
@@ -258,12 +258,12 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative section-padding bg-[hsl(225_35%_5%)] text-foreground"
+      className="relative section-padding bg-background text-foreground"
     >
       {/* Soft ambient backdrop */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 left-1/4 w-[600px] h-[600px] rounded-full bg-[hsl(265_80%_50%/0.08)] blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(220_80%_50%/0.08)] blur-3xl" />
+        <div className="absolute -top-32 left-1/4 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-accent/5 blur-3xl" />
       </div>
 
       <div className="container-custom relative">
