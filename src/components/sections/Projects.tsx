@@ -258,12 +258,12 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative section-padding bg-[hsl(225_35%_5%)] text-foreground"
+      className="relative section-padding bg-background text-foreground"
     >
       {/* Soft ambient backdrop */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 left-1/4 w-[600px] h-[600px] rounded-full bg-[hsl(265_80%_50%/0.08)] blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-[hsl(220_80%_50%/0.08)] blur-3xl" />
+        <div className="absolute -top-32 left-1/4 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-accent/5 blur-3xl" />
       </div>
 
       <div className="container-custom relative">
