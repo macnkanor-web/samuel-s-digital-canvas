@@ -1,7 +1,7 @@
-import { useRef, MouseEvent } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRef, useState, MouseEvent } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import FadeIn from '@/components/ui/FadeIn';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type Project = {
@@ -11,11 +11,26 @@ type Project = {
   category: string;
   image?: string;
   video?: string;
+  images?: string[];
   github?: string;
   live?: string;
 };
 
 const projects: Project[] = [
+  {
+    title: 'NEP AI',
+    description:
+      'Full-stack AI content generation SaaS for startups and e-commerce brands. Built with secure JWT authentication featuring rotating refresh tokens, Prisma ORM, and a Railway/Vercel deployment pipeline. AI content generation and Stripe billing currently in development.',
+    tags: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Prisma'],
+    category: 'In Progress',
+    images: [
+      '/projects/nep-ai/dashboard.png',
+      '/projects/nep-ai/generator.png',
+      '/projects/nep-ai/billing.png',
+    ],
+    live: '#',
+    github: '#',
+  },
   {
     title: 'E-Commerce Platform',
     description:
@@ -25,16 +40,6 @@ const projects: Project[] = [
     video: '/projects/e-commerce.mp4',
     live: '#',
     github: '#',
-  },
-  {
-    title: 'Task Manager',
-    description:
-      'Productivity app with Kanban boards, calendar view, priority levels, and task statistics.',
-    tags: ['JavaScript', 'HTML/CSS', 'LocalStorage'],
-    category: 'Web App',
-    image: '/projects/task-manager.jpeg',
-    github: 'https://github.com/macnkanor-web/taskmanager',
-    live: 'https://macnkanor-web.github.io/taskmanager/',
   },
   {
     title: 'Portfolio Website',
@@ -57,11 +62,14 @@ const projects: Project[] = [
     live: 'https://macnkanor-web.github.io/DOB-Cal/',
   },
   {
-    title: 'More coming soon',
-    description: 'New work currently in design and development. Check back shortly.',
-    tags: ['WIP'],
-    category: 'Upcoming',
-    live: '#',
+    title: 'Task Manager',
+    description:
+      'Productivity app with Kanban boards, calendar view, priority levels, and task statistics.',
+    tags: ['JavaScript', 'HTML/CSS', 'LocalStorage'],
+    category: 'Web App',
+    image: '/projects/task-manager.jpeg',
+    github: 'https://github.com/macnkanor-web/taskmanager',
+    live: 'https://macnkanor-web.github.io/taskmanager/',
   },
 ];
 
@@ -75,6 +83,90 @@ const layoutClasses = [
   'md:col-span-7 min-h-[300px]',
   'md:col-span-5 min-h-[300px]',
 ];
+
+function ImageCarousel({ images, title }: { images: string[]; title: string }) {
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const paginate = (dir: number) => {
+    setDirection(dir);
+    setIndex((i) => (i + dir + images.length) % images.length);
+  };
+
+  const goTo = (i: number) => {
+    setDirection(i > index ? 1 : -1);
+    setIndex(i);
+  };
+
+  return (
+    <div className="absolute inset-0">
+      <AnimatePresence initial={false} custom={direction} mode="popLayout">
+        <motion.img
+          key={index}
+          src={images[index]}
+          alt={`${title} screenshot ${index + 1}`}
+          custom={direction}
+          initial={{ x: direction > 0 ? '100%' : '-100%', opacity: 0.6 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: direction > 0 ? '-100%' : '100%', opacity: 0.6 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(_, info) => {
+            if (info.offset.x < -60) paginate(1);
+            else if (info.offset.x > 60) paginate(-1);
+          }}
+          className="absolute inset-0 w-full h-full object-cover object-top select-none cursor-grab active:cursor-grabbing"
+          draggable={false}
+        />
+      </AnimatePresence>
+
+      {/* Arrows */}
+      <button
+        type="button"
+        aria-label="Previous slide"
+        onClick={(e) => {
+          e.stopPropagation();
+          paginate(-1);
+        }}
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-background/60 backdrop-blur-md border border-border text-foreground opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 ease-out flex items-center justify-center hover:bg-background/80"
+      >
+        <ChevronLeft className="w-4 h-4" />
+      </button>
+      <button
+        type="button"
+        aria-label="Next slide"
+        onClick={(e) => {
+          e.stopPropagation();
+          paginate(1);
+        }}
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-background/60 backdrop-blur-md border border-border text-foreground opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 ease-out flex items-center justify-center hover:bg-background/80"
+      >
+        <ChevronRight className="w-4 h-4" />
+      </button>
+
+      {/* Dots */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 flex items-center gap-1.5">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            aria-label={`Go to slide ${i + 1}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              goTo(i);
+            }}
+            className={cn(
+              'h-1.5 rounded-full transition-all duration-300 ease-out',
+              i === index ? 'w-5 bg-foreground' : 'w-1.5 bg-foreground/40 hover:bg-foreground/60'
+            )}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function ProjectCard({
   project,
@@ -129,6 +221,8 @@ function ProjectCard({
     gy.set(50);
   };
 
+  const hasCarousel = !!project.images && project.images.length > 0;
+
   return (
     <motion.div
       ref={ref}
@@ -163,7 +257,9 @@ function ProjectCard({
             style={{ rotateX: imgRX, rotateY: imgRY, transformPerspective: 1200 }}
             className="absolute inset-0 [transform-style:preserve-3d]"
           >
-            {project.video ? (
+            {hasCarousel ? (
+              <ImageCarousel images={project.images!} title={project.title} />
+            ) : project.video ? (
               <video
                 src={project.video}
                 autoPlay
@@ -198,7 +294,7 @@ function ProjectCard({
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card to-transparent" />
 
           {/* Category chip */}
-          <span className="absolute top-4 left-4 px-3 py-1 text-[10px] uppercase tracking-[0.14em] rounded-full bg-muted backdrop-blur-md text-foreground border border-border">
+          <span className="absolute top-4 left-4 z-10 px-3 py-1 text-[10px] uppercase tracking-[0.14em] rounded-full bg-muted backdrop-blur-md text-foreground border border-border">
             {project.category}
           </span>
         </div>
@@ -224,7 +320,7 @@ function ProjectCard({
 
           {/* Floating tech badges */}
           <div className="mt-auto flex flex-wrap items-center gap-1.5">
-            {project.tags.slice(0, 4).map((tag) => (
+            {project.tags.slice(0, 5).map((tag) => (
               <span
                 key={tag}
                 className="px-2.5 py-1 text-[11px] rounded-full bg-secondary border border-border text-secondary-foreground"
