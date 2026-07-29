@@ -28,7 +28,7 @@ const projects: Project[] = [
       '/projects/nep-ai/generator.png',
       '/projects/nep-ai/billing.png',
     ],
-    live: '#',
+    live: 'https://nepges-store.lovable.app/',
     github: '#',
   },
   {
